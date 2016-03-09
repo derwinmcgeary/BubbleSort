@@ -12,6 +12,8 @@ public class BubbleSort {
     public static void main(String[] args) {
 	String filename = "example.txt";
 	String outFile = "example.txt.sorted";
+	int[] input;
+
 	if(args.length>0) {
 	    filename = args[0];
 	    outFile = filename + "sorted";
@@ -21,8 +23,11 @@ public class BubbleSort {
 	    outFile = args[1];
 	}
 
-	// int[] input = readList(filename);
-	int[] input = getRandomInts(10000);
+	if(args.length > 0) {
+	    input = readList(filename);
+	} else {
+	    input = getRandomInts(10000);
+	}
 	int[] output = bubbleSort(input);
 
 	writeList(output, outFile);

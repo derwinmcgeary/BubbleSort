@@ -29,7 +29,7 @@ public class BubbleSort {
     }
 
     public static int[] bubbleSort(int[] input) {
-
+	long startTime=System.currentTimeMillis();
 	int swap=0;
 
 	for (int i=input.length-1; i>0; i--) {
@@ -41,7 +41,8 @@ public class BubbleSort {
 		    }
 	    }
 	}
-
+	long duration = System.currentTimeMillis() - startTime;
+	System.out.printf("Sorted in %d !\n", duration);
 	return input;
     }
 

@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
+import java.util.Random;
 
 public class BubbleSort {
     public static void main(String[] args) {
@@ -21,19 +21,20 @@ public class BubbleSort {
 	    outFile = args[1];
 	}
 
-	String[] input = readList(filename);
-	String[] output = bubbleSort(input);
+	// int[] input = readList(filename);
+	int[] input = getRandomInts(10000);
+	int[] output = bubbleSort(input);
 
 	writeList(output, outFile);
     }
 
-    public static String[] bubbleSort(String[] input) {
+    public static int[] bubbleSort(int[] input) {
 
-	String swap=null;
+	int swap=0;
 
 	for (int i=input.length-1; i>0; i--) {
 	    for (int j=0; j<i; j++) {
-		if (input[j].compareTo(input[j+1]) > 0) {
+		if (input[j] > input[j+1]) {
 			swap = input[j];
 			input[j] = input[j+1];
 			input[j+1] = swap;
@@ -44,7 +45,7 @@ public class BubbleSort {
 	return input;
     }
 
-    public static String[] readList(String filename) {
+    public static int[] readList(String filename) {
 	int i=0;
 	int n=0;
 
@@ -52,26 +53,26 @@ public class BubbleSort {
 	    n=countLines(filename);
 	} catch(IOException e) {
 	    System.out.println("Cannot open" + filename + "!");
-	    return new String[] {"ERROR","ERROR","ERROR"};
+	    return new int[] {-1,-1,-1};
 	}
 	
 	// We have to declare the array to have the same length as the file upfront
-	String[] output = new String[n];
+	int[] output = new int[n];
 	
 	try {
 	    Scanner sc = new Scanner(new File(filename));
-	    while (sc.hasNext()) {
-		output[i++] = sc.next(); // this is a little evil, because postincrement
+	    while (sc.hasNextInt()) {
+		output[i++] = sc.nextInt(); // this is a little evil, because postincrement
 	    }
 	} catch (FileNotFoundException e) {
 	    System.out.println("Cannot open" + filename + "!");
-	    return new String[] {"ERROR","ERROR","ERROR"};
+	    return new int[] {-1,-1,-1};
 	}
 	
 	return output;
     }
     
-    public static void writeList(String[] data, String filename) {
+    public static void writeList(int[] data, String filename) {
 
 	PrintWriter pw = null;
 	
@@ -83,14 +84,25 @@ public class BubbleSort {
 	
 	// Write out the list of frequencies
 	System.out.printf("Writing to %s ... ",filename);
-	for(String word : data) {
-	    pw.println(word);	   
+	for(int number : data) {
+	    pw.println(number);	   
 	}
 
 	pw.flush();
 	pw.close();
 	System.out.println("done!");
     
+    }
+
+    public static int[] getRandomInts(int quantity) {
+	Random r = new Random();
+	int[] output = new int[quantity];
+	
+	for(int i = 0; i < quantity; i++) {
+	    output[i]=r.nextInt(Integer.MAX_VALUE);
+	}
+
+	return output;
     }
     
     public static int countLines(String filename) throws IOException {

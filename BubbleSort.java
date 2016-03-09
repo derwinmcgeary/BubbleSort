@@ -13,6 +13,7 @@ public class BubbleSort {
 	String filename = "example.txt";
 	String outFile = "example.txt.sorted";
 	int[] input;
+	int listSize=100000;
 
 	if(args.length>0) {
 	    filename = args[0];
@@ -26,7 +27,7 @@ public class BubbleSort {
 	if(args.length > 0) {
 	    input = readList(filename);
 	} else {
-	    input = getRandomInts(10000);
+	    input = getRandomInts(listSize);
 	}
 	int[] output = bubbleSort(input);
 

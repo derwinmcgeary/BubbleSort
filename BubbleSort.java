@@ -36,19 +36,23 @@ public class BubbleSort {
 
     public static int[] bubbleSort(int[] input) {
 	long startTime=System.currentTimeMillis();
+	long nOps = 0;
 	int swap=0;
-
+	
 	for (int i=input.length-1; i>0; i--) {
 	    for (int j=0; j<i; j++) {
 		if (input[j] > input[j+1]) {
-			swap = input[j];
-			input[j] = input[j+1];
-			input[j+1] = swap;
-		    }
+		    nOps++;
+		    swap = input[j];
+		    input[j] = input[j+1];
+		    input[j+1] = swap;
+		}
 	    }
 	}
 	long duration = System.currentTimeMillis() - startTime;
-	System.out.printf("Sorted in %d !\n", duration);
+	float spd = 1000 * nOps / duration;
+	int speed = (int) spd;
+	System.out.printf("Sorted in %d !\n (%d Operations at %d Ops/s)\n", duration, nOps, speed);
 	return input;
     }
 
